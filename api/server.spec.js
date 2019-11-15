@@ -3,11 +3,6 @@ const db = require('../database/dbConfig');
 
 const server = require('./server');
 
-beforeEach(async () => {
-    await db('jokes')
-    .truncate();
-});
-
 describe('server', () => {
     describe('GET /', () => {
         it('needs to return 200 OK', async () => {
@@ -19,8 +14,7 @@ describe('server', () => {
     it('needs to return JSON formatted response', async () => {
         const res = await request(server)
         .get('/');
-        return expect(res.type)
-        .toMatch(/json/i);
+        return expect(res.type).toMatch(/json/i);
     });
 
 });
