@@ -1,17 +1,24 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-
-import PrivateRoute from './components/route';
-
-import LoginForm from './components/login-form';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Login from './components/login';
 import Jokes from './components/jokes';
+import Register from './components/register';
+import PrivateRoute from './components/PrivateRoute';
 
-const App = () => (
-  <>
-    <Switch>
-      <Route path = '/' component = {LoginForm} />
-      <PrivateRoute path = '/jokes' component = {Jokes} />
-    </Switch>
-  </>
-);
+function App() {
+
+  return (
+
+    <div className = 'App'>
+      <h1>Jokes</h1>
+
+      <BrowserRouter>
+        <PrivateRoute exact path = '/' component = {Jokes} />
+        <Route path = '/login' component = {Login} />
+        <Route path = '/register' component = {Register} />
+      </BrowserRouter>
+    </div>
+  );
+}
+
 export default App;

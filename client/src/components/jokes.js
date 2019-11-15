@@ -1,14 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import fetchJokes from './fetchJokes';
+import { axiosWithAuth } from './axiosWithAuth';
 
-const Jokes = () => {
+const Users = () => {
     const [jokes, setJokes] = useState([]);
 
-    useEffect(() => {
-        fetchJokes().then(res => setJokes(res.data));
-    }, []);
+    const getJokes = async () => {
+        try {
+        const res = await axiosWithAuth().get('jokes');
 
-    return <pre>{JSON.stringify(jokes, null, 4)}</pre>;
+        setJokes(res.data);
+        } catch (err) {
+        
+        console.error(err);
+    }
 };
 
-export default Jokes;
+    useEffect(() => {
+        getJokes();
+    }, []);
+
+    return (
+        <div>
+            {jokes.map(joke => {
+                return (
+                <>
+                    <p>id: {joke.id}</p>
+                    <p>joke: {joke.joke}</p>
+                </>
+                );
+            })}
+        </div>
+    );
+};
+
+export default Users;
